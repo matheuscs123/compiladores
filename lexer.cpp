@@ -18,24 +18,24 @@ Lexer::Lexer()
 // retorna tokens para o analisador sintático
 Token Lexer::Scan()
 {
-	// salta espaços em branco, tabulações e novas linhas
+	// Salta espaços em branco, tabulações e novas linhas
 	while (isspace(peek))
 	{
 		if (peek == '\n')
-			line += 1;
+			line++;
 		peek = cin.get();
 	}
 
+	// Lida com comentários antes de processar qualquer outro token
 	Comments();
 
-	// retorna números
+	// Retorna números
 	if (isdigit(peek))
 	{
 		int v = 0;
 
 		do
 		{
-			// converte caractere 'n' para o dígito numérico n
 			int n = peek - '0';
 			v = 10 * v + n;
 			peek = cin.get();
@@ -44,11 +44,11 @@ Token Lexer::Scan()
 		// DEBUG: exibe o token reconhecido
 		cout << "<NUM," << v << "> ";
 
-		// retorna o token NUM
+		// Retorna o token NUM
 		return Num{v};
 	}
 
-	// retorna palavras-chave e identificadores
+	// Retorna palavras-chave e identificadores
 	if (isalpha(peek))
 	{
 		stringstream ss;
@@ -62,7 +62,7 @@ Token Lexer::Scan()
 		string s = ss.str();
 		auto pos = id_table.find(s);
 
-		// se o lexema já está na tabela
+		// Se o lexema já está na tabela
 		if (pos != id_table.end())
 		{
 			// DEBUG: exibe o token reconhecido
@@ -79,37 +79,37 @@ Token Lexer::Scan()
 				break;
 			}
 
-			// retorna o token ID
+			// Retorna o token ID
 			return pos->second;
 		}
 
-		// se o lexema ainda não está na tabela
+		// Se o lexema ainda não está na tabela
 		Id new_id{Tag::ID, s};
 		id_table[s] = new_id;
 
 		// DEBUG: exibe o token reconhecido
 		cout << "<" << "ID" << "," << new_id.name << "> ";
 
-		// retorna o token ID
+		// Retorna o token ID
 		return new_id;
 	}
 
-	// operadores (e caracteres não alphanuméricos isolados)
+	// Operadores (e caracteres não alphanuméricos isolados)
 	Token t{peek};
 	peek = ' ';
 
 	// DEBUG: exibe o token para o caractere
 	cout << "<" << char(t.tag) << "> ";
 
-	// retorna o token para o caractere isolado
+	// Retorna o token para o caractere isolado
 	return t;
 }
 
 void Lexer::Comments() {
+    // Lida com comentários de uma linha
     if (peek == '/') {
         peek = cin.get();
         if (peek == '/') {
-            // Lida com comentários de uma linha
             while (peek != '\n' && peek != EOF) {
                 peek = cin.get();
             }
@@ -117,26 +117,32 @@ void Lexer::Comments() {
                 line++; // Incrementa o número da linha
                 peek = cin.get(); // Lê o próximo caractere
             }
-        } else if (peek == '*') {
+        }
+        else if (peek == '*') {
             // Lida com comentários de múltiplas linhas
             while (true) {
                 peek = cin.get();
                 if (peek == '\n') {
                     line++; // Incrementa o número da linha para cada nova linha
                 }
-                if (peek == '*' && (peek = cin.get()) == '/') {
-                    peek = cin.get(); // Lê o próximo caractere após o fechamento do comentário
-                    break;
+                if (peek == '*') {
+                    peek = cin.get(); // Lê o próximo caractere
+                    if (peek == '/') { // Verifica se é o fechamento do comentário
+                        peek = cin.get(); // Lê o próximo caractere após o fechamento do comentário
+                        break;
+                    }
+                }
+                if (peek == EOF) {
+                    break; // Saia se atingir o fim do arquivo
                 }
             }
         }
     }
 }
 
-
 void Lexer::Start()
 {
-	// simula o analisador sintático pedindo tokens para o analisador léxico
-	while (peek != '\n')
+	// Simula o analisador sintático pedindo tokens para o analisador léxico
+	while (peek != '\n' && peek != EOF) // Adicionado EOF para evitar loop infinito
 		Scan();
 }
