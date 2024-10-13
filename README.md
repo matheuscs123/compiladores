@@ -1,35 +1,51 @@
-# Curso de Compiladores
+# LABORATÓRIO 01
 
-Este repositório contém o material de apoio do curso de compiladores ministrado aos alunos de Ciência da Computação da Universidade Federal Rural do Semi-árido (UFERSA). 
+## ANÁLISE LÉXICA
+## FONTE: MATERIAL DE LABORATO RIO DE COMPILADORES DO PROFESSOR JUDSON SANTOS SANTIAGO
 
-Os laboratórios disponibilizados são referentes aos seguintes assuntos:
+### O LINK DO GITHUB DO CÓDIGO FONTE DO ANALASIDOR LÉXICO PODE ACESSADO [AQUI](https://github.com/JudsonSS/Compiladores/tree/2e1b81ba859e18e938ea149d1cef2edea04dde36/Labs/Lab06)
 
-00. Introdução
-01. Ambiente de Trabalho - Linux
-02. Ambiente de Trabalho - VS Code
-03. Tradução Dirigida por Sintaxe
-04. Análise Sintática
-05. Construção do Tradutor
-06. Análise Léxica
-07. Expansão do Tradutor
-08. Tabela de Símbolos
-09. Exercícios e Revisão 
-10. Análise Semântica
-11. Representação Intermediária
-12. Expressões Regulares
-13. Reconhecimento de Tokens
-14. Gerador de Analisador Léxico
-15. Exemplos de Uso do Flex
-16. Autômatos Finitos
-17. Geração de Analisadores Léxicos
-18. Exercícios e Revisão
-19. Gramáticas
-20. Transformação de Gramáticas
-21. Análise Descendente
-22. Analisador Preditivo
-23. Análise Ascendente
-24. Gerador de Analisador Sintático
-25. Exemplos de Uso do Bison
-26. Exercícios e Revisão
+1. Amplie o analisador léxico do material disponibilizado no link acima, para que ele
+ignore comentários iniciando com barras duplas, até o final da linha, ou iniciando
+com /* e finalizando com */.
 
-Estou constantemente tentando melhorar o material do curso, portanto se tiverem sugestões de melhoria fiquem a vontade para contribuir.
+As entradas abaixo devem ser válidas.
+
+```
+// uma expressão válida
+total + 3 * 40
+```
+
+```
+total + 3 * 40 // mais uma expressão válida
+```
+
+```
+/* uma expressão válida */
+total + 3 * 40 
+```
+
+```
+total + 3 * 40 /* outra expressão válida */
+```
+
+```
+total + // também
+3 * 40  /* válido */
+```
+
+```
+total + 3 /* também válido
+* 40         mas ignora essa linha  */
+```
+
+
+A implementação deste laboratório vale 1 ponto. O código fonte com o ajuste do novo requisito especificado deve ser disponibilizado preferencialmente através do link de um novo repositório no GitHub ou através de um arquivo compactado no formato .zip.
+
+Os códigos disponibilizados para a atividade tem como autor o professor Judson Santiago
+e estão hospedados no GitHub sob a licença MIT. Isso significa que vocês têm permissão
+para baixar, modificar e reutilizar o código em seus próprios projetos, incluindo a criação
+de novos repositórios com funcionalidades adicionais. No entanto, é importante que, ao
+fazerem isso, vocês referenciem o autor original do código conforme exigido pela licença.
+Essa prática respeita os direitos do criador e promove uma cultura de colaboração e
+responsabilidade no uso de software livre.
