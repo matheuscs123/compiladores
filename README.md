@@ -1,3 +1,15 @@
+
+aluno: Matheus carvalho da silva
+curso: engenharia da computação
+materia: compiladores
+
+
+
+
+
+
+
+
 # LABORATÓRIO 01
 
 ## ANÁLISE LÉXICA
